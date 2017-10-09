@@ -26,7 +26,9 @@ module.exports = function(args) {
 }
 var resizeFile = function(fileName, args, files, cb) {
 	if (minimatch(fileName, args.glob)) {
-		var resizedFile = sharp(files[fileName].contents).resize(args.width, args.height)
+		var resizedFile = sharp(files[fileName].contents)
+			.resize(args.width, args.height)
+			.max();
 		if (args.ext) {
 			resizedFile.toFormat(args.ext)
 				// change extension on file written
